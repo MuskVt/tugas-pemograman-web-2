@@ -12,7 +12,10 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        //
+        return view('karyawan.index', [
+            'title' => 'Karyawan',
+            'karyawans' =>Karyawan::all(),
+            ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class KaryawanController extends Controller
      */
     public function create()
     {
-        //
+        return view('karyawan.create', ['title' => 'Create Karyawan']);
     }
 
     /**
