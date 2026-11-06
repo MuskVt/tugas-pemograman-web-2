@@ -31,7 +31,22 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+    $validated = $request->validate([
+        'name' => 'required','max:50',
+        'nik' => 'required|digits:6|numeric'
+        ],  [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+            'nik.required' => 'Nik tidak boleh kosong',
+            'nik.digits' => 'Nik wajib :digits digit',
+            'nik.numeric' => 'Nik wajib angka',
+            ]   
+    );
+
+    Karyawan::create($validated);
+    return to_route('karyawan.index')->withSuccess('Data Pekerja Berhasil Ditambahkan');
+
     }
 
     /**
