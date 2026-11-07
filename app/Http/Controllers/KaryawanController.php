@@ -62,7 +62,10 @@ class KaryawanController extends Controller
      */
     public function edit(Karyawan $karyawan)
     {
-        //
+            return view('karyawan.edit', [
+            'title' => 'Edit Karyawan',
+            'karyawan' =>$karyawan,
+            ]);
     }
 
     /**
@@ -70,7 +73,21 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, Karyawan $karyawan)
     {
-        //
+            $validated = $request->validate([
+        'name' => 'required','max:50',
+        'nik' => 'required|digits:6|numeric'
+        ],  [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+            'nik.required' => 'Nik tidak boleh kosong',
+            'nik.digits' => 'Nik wajib :digits digit',
+            'nik.numeric' => 'Nik wajib angka',
+            ]   
+    );
+
+    $karyawan->update($validated);
+    return to_route('karyawan.index')->withSuccess('Data Pekerja Berhasil Diubah');
+
     }
 
     /**

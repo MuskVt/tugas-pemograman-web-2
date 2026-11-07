@@ -11,3 +11,7 @@ Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.in
 Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
 
 Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
+
+Route::get('/karyawan/{karyawan}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+
+Route::put('/karyawan/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');

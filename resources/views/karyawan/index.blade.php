@@ -12,7 +12,12 @@
 
     <ul class="list-group">
         @foreach ($karyawans as $karyawan)
-            <li class="list-group-item">{{ $loop->iteration }}. {{ $karyawan->nik }} -- {{ $karyawan->name }}</li>
+            <li class="list-group-item">{{ $loop->iteration }}. {{ $karyawan->nik }} -- {{ $karyawan->name }}
+                <a class="btn btn-warning btn-sm" href="{{ route('karyawan.edit', $karyawan) }}" role="button">
+                    Edit
+                </a>
+
+            </li>
         @endforeach
     </ul>
 
