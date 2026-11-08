@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('karyawans', function (Blueprint $table) {
+            // untuk menyimpan data di migration 
             $table->id();
             $table->string('name');
             $table->integer('nik');

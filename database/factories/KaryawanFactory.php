@@ -18,6 +18,8 @@ class KaryawanFactory extends Factory
     public function definition(): array
     {
         return [
+
+            // untuk mencetak data menurut seeder menggunakan faker
             'name' => fake()->name(),
             'nik' => fake()->numerify('######'),
         ];

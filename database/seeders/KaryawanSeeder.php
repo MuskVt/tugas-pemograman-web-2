@@ -13,7 +13,7 @@ class KaryawanSeeder extends Seeder
      */
     public function run(): void
     {
-        
+        // untuk membuat isi karyawan yang akan di cetak di factory
         Karyawan::factory()->count(25)->create();
     }
 }

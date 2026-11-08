@@ -14,7 +14,9 @@ class KaryawanController extends Controller
     {
         return view('karyawan.index', [
             'title' => 'Karyawan',
-            'karyawans' =>Karyawan::all(),
+            // 'karyawans' =>Karyawan::all(),
+            // untuk manampilkan data yang baru diatas
+            'karyawans' =>Karyawan::latest()->get(),
             ]);
     }
 
@@ -23,6 +25,7 @@ class KaryawanController extends Controller
      */
     public function create()
     {
+        // jika tombol create ditekan pada form index akan membawa ke form Create
         return view('karyawan.create', ['title' => 'Create Karyawan']);
     }
 
@@ -32,51 +35,58 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
     
-    $validated = $request->validate([
-        'name' => 'required','max:50',
-        'nik' => 'required|digits:6|numeric'
+        // tempat untuk memvalidasi data dari tombol create tadi
+        $validated = $request->validate([
+            'name' => 'required','max:50',
+            'nik' => 'required|digits:6|numeric'
         ],  [
+
+            // pesan pesan pada tabel jika tidak memenuhi persyararan/validasi
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama tidak boleh lebih dari :max karakter',
             'nik.required' => 'Nik tidak boleh kosong',
             'nik.digits' => 'Nik wajib :digits digit',
             'nik.numeric' => 'Nik wajib angka',
             ]   
-    );
-
-    Karyawan::create($validated);
-    return to_route('karyawan.index')->withSuccess('Data Pekerja Berhasil Ditambahkan');
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Karyawan $karyawan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Karyawan $karyawan)
-    {
-            return view('karyawan.edit', [
-            'title' => 'Edit Karyawan',
-            'karyawan' =>$karyawan,
-            ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+            );
+            
+            // saat berhasil akan diubah dan dibawa kembali ke index
+            Karyawan::create($validated);
+            return to_route('karyawan.index')->withSuccess('Data Pekerja Berhasil Ditambahkan');
+            
+            }
+            
+            /**
+             * Display the specified resource.
+            */
+            public function show(Karyawan $karyawan)
+            {
+                //
+                }
+                
+                /**
+                 * Show the form for editing the specified resource.
+                */
+                public function edit(Karyawan $karyawan)
+                {
+                    return view('karyawan.edit', [
+                        'title' => 'Edit Karyawan',
+                        'karyawan' =>$karyawan,
+                        ]);
+                        }
+                        
+                        /**
+                         * Update the specified resource in storage.
+                        */
     public function update(Request $request, Karyawan $karyawan)
     {
-            $validated = $request->validate([
-        'name' => 'required','max:50',
-        'nik' => 'required|digits:6|numeric'
+        // tempat untuk memvalidasi data dari tombol create tadi
+        $validated = $request->validate([
+            'name' => 'required','max:50',
+            'nik' => 'required|digits:6|numeric'
         ],  [
+
+            // pesan pesan pada tabel jika tidak memenuhi persyararan/validasi
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama tidak boleh lebih dari :max karakter',
             'nik.required' => 'Nik tidak boleh kosong',
@@ -86,6 +96,8 @@ class KaryawanController extends Controller
     );
 
     $karyawan->update($validated);
+
+    // saat berhasil akan diubah dan dibawa kembali ke index
     return to_route('karyawan.index')->withSuccess('Data Pekerja Berhasil Diubah');
 
     }
@@ -95,6 +107,9 @@ class KaryawanController extends Controller
      */
     public function destroy(Karyawan $karyawan)
     {
-        //
+        $karyawan->delete($karyawan);
+
+        // saat berhasil akan diubah dan dibawa kembali ke index
+        return to_route('karyawan.index')->withSuccess('Data Pekerja Telah Dihapus');
     }
 }
