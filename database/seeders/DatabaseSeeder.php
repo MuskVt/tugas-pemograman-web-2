@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // agar seeder bisa dipanggil dan dijalankan
         $this->call([
             KaryawanSeeder::class,
         ]);

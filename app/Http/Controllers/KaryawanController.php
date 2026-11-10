@@ -36,17 +36,38 @@ class KaryawanController extends Controller
     {
     
         // tempat untuk memvalidasi data dari tombol create tadi
+        // dd($request->all());
         $validated = $request->validate([
-            'name' => 'required','max:50',
-            'nik' => 'required|digits:6|numeric'
+            'name' => 'required|max:50',
+            'nik' => 'required|digits:6|numeric',
+            'kelamin' => ['required', 'in:laki-laki,perempuan'],
+            'jabatan' => ['required', 'in:Pekerja Produksi,Pekerja Gudang,Kepala Pabrik,Kepala Gudang,Manejer Produksi'],
+            'tglgabung' => 'required|date_format:Y-m-d',
         ],  [
 
             // pesan pesan pada tabel jika tidak memenuhi persyararan/validasi
+            // pesan nama
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+            
+            // pesan nik
             'nik.required' => 'Nik tidak boleh kosong',
             'nik.digits' => 'Nik wajib :digits digit',
             'nik.numeric' => 'Nik wajib angka',
+            
+            // pesan jenis kelamin
+            'kelamin.required' => 'Jenis Kelamin harus diisi',
+            'kelamin.in' => 'Pilihan Invalid',
+            
+            // pesan jabatan
+            'jabatan.required' => 'Jabatan harus diisi',
+            'jabatan.in'  => 'Pilihan Invalid',
+
+            // pesan tanggal gabung
+            'tglgabung.required' => 'Tanggal gabung wajib diisi.',
+            'tglgabung.date_format' => 'Format tanggal harus YYYY-MM-DD (Contoh: 2026-11-10).',
+
+
             ]   
             );
             
@@ -59,7 +80,7 @@ class KaryawanController extends Controller
             /**
              * Display the specified resource.
             */
-            public function show(Karyawan $karyawan)
+    public function show(Karyawan $karyawan)
             {
                 //
                 }
@@ -67,31 +88,45 @@ class KaryawanController extends Controller
                 /**
                  * Show the form for editing the specified resource.
                 */
-                public function edit(Karyawan $karyawan)
-                {
-                    return view('karyawan.edit', [
-                        'title' => 'Edit Karyawan',
-                        'karyawan' =>$karyawan,
-                        ]);
-                        }
-                        
-                        /**
-                         * Update the specified resource in storage.
-                        */
+    public function edit(Karyawan $karyawan)
+        {
+            return view('karyawan.edit', [
+                'title' => 'Edit Karyawan',
+                'karyawan' =>$karyawan,
+        ]);
+        }
+
+        /**
+        *Update the specified resource in storage.
+        */
     public function update(Request $request, Karyawan $karyawan)
     {
         // tempat untuk memvalidasi data dari tombol create tadi
         $validated = $request->validate([
-            'name' => 'required','max:50',
-            'nik' => 'required|digits:6|numeric'
+            'name' => 'required|max:50',
+            'nik' => 'required|digits:6|numeric',
+            'kelamin' => ['required', 'in:laki-laki,perempuan'],
+            'jabatan' => ['required', 'in:Pekerja Produksi,Pekerja Gudang,Kepala Pabrik,Kepala Gudang,Manejer Produksi'],
+            'tglgabung' => 'required|date_format:Y-m-d',
         ],  [
 
             // pesan pesan pada tabel jika tidak memenuhi persyararan/validasi
+            // pesan nama
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+
+            // pesan nik
             'nik.required' => 'Nik tidak boleh kosong',
             'nik.digits' => 'Nik wajib :digits digit',
             'nik.numeric' => 'Nik wajib angka',
+            
+            // pesan jenis kelamin
+            'kelamin.required' => 'Jenis Kelamin harus diisi',
+            'kelamin.in' => 'Pilihan Invalid',
+            
+            // pesan jabatan
+            'jabatan.required' => 'Jabatan harus diisi',
+            'jabatan.in'  => 'Pilihan Invalid',
             ]   
     );
 

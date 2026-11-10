@@ -16,7 +16,8 @@
     <ul class="list-group">
         @foreach ($karyawans as $karyawan)
             {{-- untuk menampilakan data menggunakantabel/read menggunakan loop --}}
-            <li class="list-group-item">{{ $loop->iteration }}. {{ $karyawan->nik }} -- {{ $karyawan->name }}
+            <li class="list-group-item">{{ $loop->iteration }}. {{ $karyawan->nik }} -- {{ $karyawan->name }} --
+                {{ $karyawan->kelamin }} -- {{ $karyawan->jabatan }} -- {{ $karyawan->tglgabung }}
 
                 {{-- untuk membuat tombol edit di samping nama --}}
                 <a class="btn btn-warning btn-sm" href="{{ route('karyawan.edit', $karyawan) }}" role="button">
